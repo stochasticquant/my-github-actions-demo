@@ -22,11 +22,22 @@ jobs:
     runs-on: ubuntu-latest
     environment: Development
     needs: first_job
+    steps: 
+      - run: |
+          echo "Hello ${{ vars.WHO_TO_GREET }} from ${{ github.actor }}."
+          sec=$(echo ${{ secret.MY_SECRET }} | sed 's/ ./& /g')
+          echo "My secret is '$sec'."
+          echo "Current branch is '${{ github.ref }}'."
 
   Acceptance:
     runs-on: ubuntu-latest
     environment: Acceptance
     needs: first_job
+    steps: 
+      - run: |
+          echo "Hello ${{ vars.WHO_TO_GREET }} from ${{ github.actor }}."
+          echo "My secret is ${{ secret.MY_SECRET }}"
+          echo "Current branch is '${{ github.ref }}'."
 
   Production:
     runs-on: ubuntu-latest
@@ -34,4 +45,10 @@ jobs:
       name: Production
       url: https://writeabout.net
     needs: [Development, Acceptance]
+    steps: 
+      - run: |
+          echo "Hello ${{ vars.WHO_TO_GREET }} from ${{ github.actor }}."
+          sec=$(echo ${{ secret.MY_SECRET }} | sed 's/ ./& /g')
+          echo "My secret is '$sec'."
+          echo "Current branch is '${{ github.ref }}'."
     
