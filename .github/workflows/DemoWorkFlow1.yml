@@ -12,8 +12,7 @@ jobs:
     steps: 
       - run: |
           echo "Hello ${{ vars.WHO_TO_GREET }} from ${{ github.actor }}."
-          sec=$(echo ${{ secret.MY_SECRET }} | sed 's/ ./& /g')
-          echo "My secret is '$sec'."
+          echo "My secret is ${{ secret.MY_SECRET }}"
           echo "Current branch is '${{ github.ref }}'."
       - name: Checkout
         uses: actions/checkout@v4.1.5
@@ -36,7 +35,8 @@ jobs:
     steps: 
       - run: |
           echo "Hello ${{ vars.WHO_TO_GREET }} from ${{ github.actor }}."
-          echo "My secret is ${{ secret.MY_SECRET }}"
+          sec=$(echo ${{ secret.MY_SECRET }} | sed 's/ ./& /g')
+          echo "My secret is '$sec'."
           echo "Current branch is '${{ github.ref }}'."
 
   Production:
